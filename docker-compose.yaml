@@ -1,0 +1,33 @@
+services:
+  service-grpc:
+        container_name: nestgrpc
+        image: nestgrpc:latest
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.nestgrpc
+            target: development
+            args:
+                NODE_ENV: dev
+        ports:
+            - "3000:3000"
+            - "5000:5000"
+        volumes:
+            - ./hello-world-demo/:/home/nels/api/
+            - ./hello-world-demo/node_modules:/home/nels/api/node_modules
+            - /home/nels/api/node_modules/
+        command: npm run start:dev #tail -f /dev/null
+
+  karate-grpc:
+        container_name: karate
+        image: karate:latest
+        build:
+            context: .
+            dockerfile: docker/Dockerfile.karate
+        volumes:
+          - ./karate-grpc:/app
+        # command: ["sleep", "infinity"]
+        command: mvn test -X
+      
+        # command: ["java",  "-jar", "/karate.jar", "."]
+
+        

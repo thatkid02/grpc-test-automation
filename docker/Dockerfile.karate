@@ -1,0 +1,11 @@
+FROM adoptopenjdk:11-jdk-hotspot
+
+RUN apt-get update && apt-get install -y maven
+
+RUN curl -L -o karate.jar https://github.com/karatelabs/karate/releases/download/v1.4.0/karate-1.4.0.jar
+
+WORKDIR /app
+
+COPY karate-template/ /app
+
+RUN [ "mvn", "clean", "install" ]

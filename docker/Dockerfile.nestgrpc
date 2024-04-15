@@ -1,0 +1,15 @@
+FROM node:21.7.0-alpine3.19 As development
+
+ARG NODE_ENV
+
+WORKDIR /home/nels/api
+
+COPY hello-world-demo/package*.json .
+
+RUN npm install
+
+COPY hello-world-demo/ .
+
+RUN npm run build
+
+RUN if [[ "$NODE_ENV" != "dev" ]] ; then npm prune --production ; fi
