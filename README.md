@@ -48,6 +48,11 @@ This project aims to automate grpc sanity tests just by providing the grpc host.
 
 ### Usage
 
+#### Generate proto
+
+```
+python sanity.py 
+```
 
 ```
 docker compose up
